@@ -11,4 +11,3 @@ void main()
 	}
 	printf("The factorial of %d is %d",a,b);
 }
-
