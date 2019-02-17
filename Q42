@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+void main() {
+    float cp,sp,na;
+    printf("Enter cost price: \n");
+    scanf("%f",&cp);
+    printf("Enter selling price: \n");
+    scanf("%f",&sp);
+    na = sp - cp;
+    if (na>0)
+        printf("Profit of %.2f Rs",na);
+    else if (na<0)
+        printf("Loss of %.2f Rs",na);
+    else
+        printf("Neither profit nor loss");
+}
