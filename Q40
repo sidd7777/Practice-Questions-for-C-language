@@ -1,0 +1,16 @@
+#include <stdio.h>
+
+void main() {
+    float n,a=1,b=2;
+    float x=0;
+    printf("Enter a number \n");
+    scanf("%f",&n);
+    while (n>0)
+    {
+        x += a/b;
+        a++;
+        b++;
+        n--;
+    }
+    printf("x = %.2f",x);
+}
