@@ -1,0 +1,12 @@
+#include <stdio.h>
+
+void main() {
+    int n,n1,fd,ld;
+    printf("Enter a four digit number \n");
+    scanf("%d",&n);
+    n1=n;
+    ld = n%10;
+    n = n/1000;
+    fd = n;
+    printf("Sum of first and last digt of %d is %d",n1,ld+fd);
+}
