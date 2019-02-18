@@ -1,0 +1,28 @@
+#include <stdio.h>
+
+void main()
+{
+    int l=65;
+    
+    for (int i=0; i<4; i++)
+    {
+        for (int j=0; j<i; j++)
+        {
+            printf(" ");
+        }
+        
+        for (int k=4-i; k>0; k--)
+        {
+            printf("%c ",l);
+        }
+        l++;
+        printf("\n");
+    }
+}
+
+/* output
+A A A A 
+ B B B 
+  C C 
+   D 
+*/
