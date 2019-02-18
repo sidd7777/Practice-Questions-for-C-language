@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+void main() {
+    
+    int n=5,k=65,c;
+    c=n;    
+	for (int i=1; i<=n; i++)
+	{
+	    
+	    for (int j=1; j<=i; j++)
+	    {
+	        c--;
+	        printf("%c ",k);
+	        k+=c;
+	    }
+	    
+	    k=65+i;
+	    c=n;
+	    printf("\n");
+	}
+
+}
+
+/* Output
+A
+B F
+C G J
+D H K M
+E I L N O
+*/
