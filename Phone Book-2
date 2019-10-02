@@ -1,0 +1,151 @@
+
+node *delete(node *head)
+{
+	node *p, *q;
+
+	printf("\n");
+	if (head != NULL)
+	{
+		for (p=head; p!=NULL; p=p->next)
+		{
+			contacts x=p->data;
+			print(x);
+		}
+	}
+	int index;
+	if(head == NULL)
+	{
+		printf("\n No Contacts");
+		main_menu(head);
+	}
+	else
+	{ 
+		printf("\n Enter The Index of The Contact you want to delete:");
+		scanf("%d", &index);
+		for (p=head; p!=NULL && p->data.index != index; p=p->next);
+			if (p->data.index != index)
+			{
+				printf("Contact Not Found\n");
+				main_menu(head);
+			}
+		if (p==head)
+		{
+			head=head->next;
+			if (head != NULL)
+				head->prev=NULL;
+			free(p);
+		}
+		else 
+		{
+			p->prev->next=p->next;
+			p->next->prev=p->prev;
+			free(p);
+		}
+
+	FILE *filePointer;
+	filePointer = fopen("contacts.txt", "w") ;
+
+	if (head != NULL)
+	{
+		for (p=head; p!=NULL; p=p->next)
+		{
+			contacts x = p->data;
+			fprintf(filePointer, "%d. %s \t %s \t %s \t %s \n", x.index, x.first_name, x.last_name, x.mobile_number, x.emailId);
+		}
+	}
+
+	fclose(filePointer);
+	
+	main_menu(head);
+	}
+}
+
+void edit(node *head)
+{
+	system("cls");
+	printf("Edit a Contact\n");
+	int index;
+	node *p;
+	printf("\n");
+
+	if (head != NULL)
+	{
+		for (p=head; p!=NULL; p=p->next)
+		{
+			contacts x=p->data;
+			print(x);
+		}
+	}
+
+	printf(" \n Enter Index of Contact");
+	scanf("%d", &index);
+	for (p=head; p!=NULL && p->data.index != index; p=p->next);
+	{	
+		if (p!=NULL)
+			{
+				printf("Enter a new Record \n");
+				p->data=read();
+				printf("Contact Modified\n");
+			}
+		else
+			printf("Wrong Index\n");
+	}
+
+	FILE *filePointer;
+	filePointer = fopen("contacts.txt", "w") ;
+
+	if (head != NULL)
+	{
+		for (p=head; p!=NULL; p=p->next)
+		{
+			contacts x = p->data;
+			fprintf(filePointer, "%d. %s \t %s \t %s \t %s \n", x.index, x.first_name, x.last_name, x.mobile_number, x.emailId);
+		}
+	}
+
+	fclose(filePointer);
+
+	printf("\n Press any key for the Main Menu\n");
+	getch();
+	main_menu(head);
+}
+
+
+void quit(node *head)
+{
+	system("cls");
+
+	printf("\t\t=================================================\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|        -----------------------------          |\n");
+	printf("\t\t|          Do You Really Want To Exit           |\n");
+	printf("\t\t|        -----------------------------          |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|         YES (1)                NO(2)          |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t=================================================\n\n\n");
+
+	int choice;
+	printf("Enter a Choice\n");
+	scanf("%d", &choice);
+	
+	if (choice == 1)
+		exit(0);
+	else if (choice == 2)
+		main_menu(head);
+	else
+		printf("Enter a Valid Choice\n");
+}
+
+int main()
+{
+	node *head=NULL;
+	home();
+	main_menu(head);
+	return 0;
+}
