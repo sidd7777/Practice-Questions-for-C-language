@@ -1,0 +1,171 @@
+#include<stdio.h>
+#include<conio.h>
+#include<string.h>
+#include<stdlib.h>
+
+typedef struct contacts
+{
+	int index;
+	char first_name[15];
+	char last_name[15];
+	char mobile_number[15];
+	char emailId[50];
+}contacts;
+
+typedef struct node
+{
+	contacts data;
+	struct node *next, *prev;
+}node;
+
+void home();
+void main_menu(node *head);
+void main_menu_choice(int choice, node *head);
+void print(contacts x);
+void displayAll(node *head);
+void edit(node *head);
+void quit(node *head);
+node *insert(node *head, contacts x);
+node *delete(node *head);
+
+contacts read()
+{
+	contacts x;
+	printf("Enter Index\n");
+	scanf("%d", &x.index);
+	printf("Enter First Name \n");
+	scanf("%s", x.first_name);
+	printf("Enter Last Name \n");
+	scanf("%s", x.last_name);
+	printf("Enter Mobile Name \n");
+	scanf("%s", x.mobile_number);
+	printf("Enter Email ID \n");
+	scanf("%s", x.emailId);
+	return x;
+}
+
+void home()
+{
+	system("cls"); 
+
+	printf("\t\t=================================================\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|        -----------------------------          |\n");
+	printf("\t\t|                  Phone Book                   |\n");
+	printf("\t\t|        -----------------------------          |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t=================================================\n\n\n");
+
+	printf(" \n Press any key to continue:");
+	getch();
+}
+
+void main_menu(node *head)
+{
+	system("cls");
+
+	printf("\t\t=================================================\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|        -----------------------------          |\n");
+	printf("\t\t|                   Main Menu                   |\n");
+	printf("\t\t|        -----------------------------          |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|        1. Add New Contact                     |\n");
+	printf("\t\t|        2. List All Contact                    |\n");
+	printf("\t\t|        3. Edit A Contact                      |\n");
+	printf("\t\t|        4. Delete A Contact                    |\n");
+	printf("\t\t|        5. Exit                                |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t|                                               |\n");
+	printf("\t\t=================================================\n\n\n");
+
+	int choice;
+	printf("Enter a Choice\n");
+	scanf("%d", &choice);
+	main_menu_choice(choice, head);
+}
+
+void main_menu_choice(int choice, node *head)
+{
+	contacts x;
+
+	switch (choice)
+	{
+		case 1: insert(head, x); break;
+		case 2: displayAll(head); break;
+		case 3: edit(head); break;
+		case 4: delete(head); break;
+		case 5: quit(head); break;
+	}
+}
+
+void print(contacts x)
+{
+	printf("\n %d. %s \t %s \t %s \t %s", x.index, x.first_name, x.last_name, x.mobile_number, x.emailId);
+}
+
+node *insert(node *head, contacts x)
+{
+	system("cls");
+	printf("Add A New Contact\n");
+	node *p, *q;
+	p=(node *)malloc(sizeof(node));
+	x = read();
+	q=head;
+	p->data=x;
+	p->next=NULL;
+	if (head==NULL)
+	{
+		head = p;
+		head->prev=NULL;
+	} 
+	else		
+	{	
+		while (q->next!=NULL)
+				q=q->next;
+		q->next=p;
+		p->prev=q;
+	}
+
+	FILE *filePointer;
+	filePointer = fopen("contacts.txt", "w") ;
+
+	if (head != NULL)
+	{
+		for (p=head; p!=NULL; p=p->next)
+		{
+			contacts x = p->data;
+			fprintf(filePointer, "%d. %s \t %s \t %s \t %s \n", x.index, x.first_name, x.last_name, x.mobile_number, x.emailId);
+		}
+	}
+
+	fclose(filePointer);
+	
+	printf(" \nContact Added Successfully \n\n");
+	main_menu(head);
+}
+
+void displayAll(node *head)
+{
+	system("cls");
+	node *p;
+	printf("All Contacts \n\n");
+	
+	if (head != NULL)
+	{
+		for (p=head; p!=NULL; p=p->next)
+		{
+			contacts x = p->data;
+			print(x);
+		}
+	}
+
+	printf("\n \n Press any key for the Main Menu\n");
+	getch();
+	main_menu(head);
+}
