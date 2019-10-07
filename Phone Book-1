@@ -27,7 +27,36 @@ void edit(node *head);
 void quit(node *head);
 node *insert(node *head, contacts x);
 node *delete(node *head);
+void sort(node *head);
 
+void sort(node *head)
+{ struct contacts *t=head;
+  struct contacts *p=head->next;
+  struct contacts temp;
+  struct contacts *q=head;
+ while(p != '\0') 
+{   if (strcmp(t->first_name, p->first_name)>0) {
+         {   strcpy(temp.emailId,t->emailId);
+             strcpy(temp.first_name,t->first_name);
+             strcpy(temp.last_name,t->last_name);
+             strcpy(temp.mobile_number,t->mobile_number);
+             temp.index=t->index;
+             strcpy(t->emailId,p->emailId);
+             strcpy(t->first_name,p->first_name);
+             strcpy(t->last_name,p->last_name);
+             strcpy(t->mobile_number,p->mobile_number);
+             t->index=p->index;
+             strcpy(p->emailId,temp.emailId);
+             strcpy(p->first_name,temp.first_name);
+             strcpy(p->last_name,temp.last_name);
+             strcpy(p->mobile_number,temp.mobile_number);
+             p->index=temp.index;
+         }
+         p=p->next;
+         t=t->next;
+     }
+ }
+}
 contacts read()
 {
 	contacts x;
